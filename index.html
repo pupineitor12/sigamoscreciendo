@@ -16,7 +16,8 @@
       <ul>
         <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
         <li><a href="#vision">Nuestra Visión</a></li>
-        <li><a href="#actividades">¿Qué hacemos?</a></li>
+        <li><a href="#actividades">Compromiso</a></li>
+        <li><a href="#quiz">Quiz</a></li>
         <li><a href="#contacto">Sumate</a></li>
       </ul>
     </nav>
@@ -65,25 +66,58 @@
     <p class="vision-text" style="font-size: 1.2rem; opacity: 0.9;">Nuestro mayor objetivo es contribuir a recuperar instituciones con plena <strong>justicia social y representatividad</strong>, devolviendo el protagonismo al pueblo.</p>
   </section>
 
-  <!-- ¿Qué hacemos? -->
+  <!-- ¿Qué hacemos? (Con Imágenes Proporcionadas) -->
   <section id="actividades">
-    <h2 class="section-title">¿Qué hacemos?</h2>
-    <p class="section-subtitle">Acciones concretas en nuestra comunidad</p>
+    <h2 class="section-title">Nuestras Acciones Comunitarias</h2>
+    <p class="section-subtitle">Organización, debate y acompañamiento constante en Esteban Echeverría</p>
     <div class="grid">
-      <div class="card">
-        <div class="card-icon">🗣️</div>
-        <h3>Encuentros y Debate</h3>
-        <p>Organizamos reuniones políticas continuas para analizar la actualidad nacional y generar espacios de debate y formación constantes.</p>
+      <div class="card image-card">
+        <div class="card-img-wrapper">
+          <img src="./img/foto1.jpg" alt="Organización Sigamos Creciendo">
+        </div>
+        <div class="card-body">
+          <h3>Celebrando en Comunidad</h3>
+          <p>Hoy celebramos un nuevo aniversario de nuestro distrito acompañando a la secretaria de gobierno Valeria Bellizzi, apostando por la unidad de los vecinos.</p>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">👩🏽</div>
-        <h3>Participación Femenina</h3>
-        <p>Realizamos encuentros de formación exclusiva e impulsamos espacios de debate para mujeres, promoviendo la diversidad de voces.</p>
+      
+      <div class="card image-card">
+        <div class="card-img-wrapper">
+          <img src="./img/foto2.jpg" alt="Encuentro Día de la Mujer">
+        </div>
+        <div class="card-body">
+          <h3>Participación Femenina</h3>
+          <p>En el marco del Día Internacional de la Mujer, nos reunimos con las compañeras de Sigamos Creciendo para recordar esta fecha tan importante del 8 de marzo que es símbolo de lucha.</p>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-icon">🌱</div>
-        <h3>Compromiso Joven</h3>
-        <p>Fomentamos el compromiso político y social fusionando el ímpetu de las nuevas generaciones con la experiencia de los adultos.</p>
+      
+      <div class="card image-card">
+        <div class="card-img-wrapper">
+          <img src="./img/foto3.jpg" alt="Periodo legislativo">
+        </div>
+        <div class="card-body">
+          <h3>Compromiso Institucional</h3>
+          <p>O cuando participamos del inicio de un nuevo periodo legislativo en nuestro distrito acompañando al intendente Fernando Gray a la secretaria de gobierno Valeria Bellizzi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz del Peronismo -->
+  <section class="quiz-section" id="quiz">
+    <div class="quiz-container" id="quiz-container">
+      <h2 style="font-family:'Outfit'; font-size:2rem; margin-bottom: 0.5rem;">Quiz del Peronismo ✌🏼</h2>
+      <p style="color:var(--text-secondary); margin-bottom:2.5rem;">¿Qué tan convencido estás? Respondé estas 3 rápidas preguntas y sumate a la transformación.</p>
+      
+      <div id="quiz-block">
+        <div class="quiz-question" id="question-text">¿Querés que vuelva el peronismo?</div>
+        <div class="quiz-options" id="options-container">
+          <!-- Opciones llenadas por JS -->
+        </div>
+      </div>
+      
+      <div class="quiz-result" id="quiz-result">
+        ¡Excelente compañero/a! El peronismo es la única fuerza capaz de garantizar justicia social. ¡Sumate a Sigamos Creciendo para militar esta vuelta! 🎉
       </div>
     </div>
   </section>
@@ -105,5 +139,54 @@
     <p>&copy; 2026 Sigamos Creciendo. Todos los derechos reservados.</p>
   </footer>
 
+  <script>
+    // Quiz Logic
+    const quizData = [
+      {
+        question: "¿Querés que vuelva el peronismo al mando del país?",
+        options: ["Sí, para recuperar conquistas", "Totalmente, es la única salida", "Nunca me fui del movimiento"]
+      },
+      {
+        question: "¿Qué bandera considerás más importante para la etapa que viene?",
+        options: ["La Justicia Social", "La Independencia Económica", "La Soberanía Política", "Las tres son innegociables"]
+      },
+      {
+        question: "¿Estás listo/a para organizarte y participar en Esteban Echeverría?",
+        options: ["Sí, quiero involucrarme ahora", "Quiero ir a escuchar y debatir", "Me sumo para aportar desde mi lugar"]
+      }
+    ];
+
+    let currentQuestion = 0;
+    const questionText = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-container");
+    const quizBlock = document.getElementById("quiz-block");
+    const quizResult = document.getElementById("quiz-result");
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      questionText.textContent = q.question;
+      optionsContainer.innerHTML = "";
+      
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.classList.add("btn", "btn-outline", "quiz-option");
+        btn.textContent = opt;
+        btn.onclick = () => selectOption();
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption() {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        quizBlock.style.display = "none";
+        quizResult.style.display = "block";
+      }
+    }
+
+    loadQuestion();
+  </script>
 </body>
 </html>
